@@ -27,6 +27,8 @@ RUN mkdir /var/www
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i 's/sendfile on/sendfile off/' /etc/nginx/nginx.conf
 RUN sed -i 's/user www-data/user root root/' /etc/nginx/nginx.conf
+RUN sed -i 's/www-data/root/g' /etc/php5/fpm/pool.d/www.conf
+RUN sed -i 's/; max_input_vars = 1000/max_input_vars = 5000/g' /etc/php5/fpm/php.ini
 
 RUN service nginx stop && service supervisor stop && service php5-fpm stop
 
